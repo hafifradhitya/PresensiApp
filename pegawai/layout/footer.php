@@ -2,29 +2,18 @@
           <div class="container-xl">
             <div class="row text-center align-items-center flex-row-reverse">
               <div class="col-lg-auto ms-lg-auto">
-                <ul class="list-inline list-inline-dots mb-0">
-                  <li class="list-inline-item"><a href="./docs/" class="link-secondary">Documentation</a></li>
-                  <li class="list-inline-item"><a href="./license.html" class="link-secondary">License</a></li>
-                  <li class="list-inline-item"><a href="https://github.com/tabler/tabler" target="_blank" class="link-secondary" rel="noopener">Source code</a></li>
-                  <li class="list-inline-item">
-                    <a href="https://github.com/sponsors/codecalm" target="_blank" class="link-secondary" rel="noopener">
-                      <!-- Download SVG icon from http://tabler-icons.io/i/heart -->
-                      <svg xmlns="http://www.w3.org/2000/svg" class="icon text-pink icon-filled icon-inline" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" /></svg>
-                      Sponsor
-                    </a>
-                  </li>
-                </ul>
+                
               </div>
               <div class="col-12 col-lg-auto mt-3 mt-lg-0">
                 <ul class="list-inline list-inline-dots mb-0">
                   <li class="list-inline-item">
-                    Copyright &copy; 2023
-                    <a href="." class="link-secondary">Tabler</a>.
+                    Copyright &copy; 2025
+                    <a href="." class="link-secondary">Kiraadtz</a>.
                     All rights reserved.
                   </li>
                   <li class="list-inline-item">
                     <a href="./changelog.html" class="link-secondary" rel="noopener">
-                      v1.0.0-beta17
+                      Pemrograman Internet
                     </a>
                   </li>
                 </ul>
@@ -141,9 +130,49 @@
     <script src="<?= base_url('assets/libs/jsvectormap/dist/js/jsvectormap.min.js?1674944402') ?>" defer></script>
     <script src="<?= base_url('assets/libs/jsvectormap/dist/maps/world.js?1674944402') ?>" defer></script>
     <script src="<?= base_url('assets/libs/jsvectormap/dist/maps/world-merc.js?1674944402') ?> " defer></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <!-- Tabler Core -->
     <script src="<?= base_url('assets/js/tabler.min.js?1674944402') ?>" defer></script>
     <script src="<?= base_url('assets/js/demo.min.js?1674944402') ?>" defer></script>
+
+    <!-- Sweet Alert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <?php if($_SESSION['gagal']) { ?>
+        <script>
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "<?= $_SESSION['gagal'] ?>",
+            });
+        </script>
+
+        <?php unset($_SESSION['gagal']); ?>
+
+    <?php } ?>
+
+    <!-- Alert Berhasil -->
+      <?php if(isset($_SESSION['berhasil'])) : ?>
+        <script>
+          const Berhasil = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.onmouseenter = Swal.stopTimer;
+              toast.onmouseleave = Swal.resumeTimer;
+            }
+          });
+          Berhasil.fire({
+            icon: "success",
+            title: "<?= $_SESSION['berhasil'] ?>"
+          });
+        </script>
+      <?php unset($_SESSION['berhasil']); ?>
+      
+      <?php endif; ?>
     
   </body>
 </html>
