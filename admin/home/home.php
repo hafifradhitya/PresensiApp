@@ -33,7 +33,7 @@ include('../layout/header.php'); ?>
                                              132 Sales
                                          </div>
                                          <div class="text-muted">
-                                             12 waiting payments
+                                             12 waiting payments WOI
                                          </div>
                                      </div>
                                  </div>
