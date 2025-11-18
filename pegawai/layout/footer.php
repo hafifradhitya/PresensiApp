@@ -15,7 +15,7 @@
                     <a href="./changelog.html" class="link-secondary" rel="noopener">
                       Pemrograman Internet
                     </a>
-                  </li>
+                  </li>  
                 </ul>
               </div>
             </div>

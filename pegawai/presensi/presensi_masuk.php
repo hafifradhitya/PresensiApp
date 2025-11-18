@@ -24,6 +24,7 @@ if (!isset($_SESSION['login'])) {
     header("Location: ../../auth/login.php?pesan=tolak_akses");
 }
 
+$judul = 'Presensi Masuk';
 include('../layout/header.php'); 
 
 include_once("../../config.php");
@@ -162,7 +163,7 @@ $jarak_meter = $jarak_km * 1000;
         radius: 500
     }).addTo(map).bindPopup("Lokasi Anda saat ini").openPopup();
 </script>
-<a href="javascript:void(take_snapshot())">Take Snapshot</a>
+<!-- <a href="javascript:void(take_snapshot())">Take Snapshot</a> -->
 <?php } ?>
 
 <?php include('../layout/footer.php'); ?>
