@@ -7,26 +7,25 @@ if (!isset($_SESSION['login'])) {
     header("Location: ../../auth/login.php?pesan=tolak_akses");
 }
 
-$judul = 'Rekap Presensi Harian';
+$judul = 'Rekap Presensi Bulanan';
 include('../layout/header.php'); 
-
 include_once("../../config.php");
 
-if(empty($_GET['tanggal_dari'])) {
-    $tanggal_hari_ini = date('Y-m-d');
-    $result = mysqli_query($connection, "SELECT presensi.*, pegawai.nama, pegawai.lokasi_presensi FROM presensi JOIN pegawai ON presensi.id_pegawai = pegawai.id WHERE tanggal_masuk = '$tanggal_hari_ini' ORDER BY tanggal_masuk DESC");
+if(empty($_GET['filter_bulan'])) {
+    $bulan_sekarang = date('Y-m');
+    $result = mysqli_query($connection, "SELECT presensi.*, pegawai.nama, pegawai.lokasi_presensi FROM presensi JOIN pegawai ON presensi.id_pegawai = pegawai.id WHERE DATE_FORMAT(tanggal_masuk, '%Y-%m') = '$bulan_sekarang' ORDER BY tanggal_masuk DESC");
 }else{
-    $tanggal_dari = $_GET['tanggal_dari'];
-    $tanggal_sampai = $_GET['tanggal_sampai'];
-    $result = mysqli_query($connection, "SELECT presensi.*, pegawai.nama, pegawai.lokasi_presensi FROM presensi JOIN pegawai ON presensi.id_pegawai = pegawai.id WHERE tanggal_masuk BETWEEN '$tanggal_dari' AND '$tanggal_sampai' ORDER BY tanggal_masuk DESC");
+    $filter_tahun_bulan = $_GET['filter_tahun'] . '-' . $_GET['filter_bulan'];
+    $result = mysqli_query($connection, "SELECT presensi.*, pegawai.nama, pegawai.lokasi_presensi FROM presensi JOIN pegawai ON presensi.id_pegawai = pegawai.id WHERE DATE_FORMAT(tanggal_masuk, '%Y-%m') = '$filter_tahun_bulan' ORDER BY tanggal_masuk DESC");
 }
 
 // var_dump(mysqli_fetch_array($result));
 // die();
-if(empty($_GET['tanggal_dari'])) {
-    $tanggal = date('Y-m-d');
+
+if(empty($_GET['filter_bulan'])) {
+    $bulan = date('Y-m');
 }else{
-    $tanggal = $_GET['tanggal_dari'] . '-' . $_GET['tanggal_sampai'];
+    $bulan = $_GET['filter_tahun'] . '-' . $_GET['filter_bulan'];
 }
 
 ?>
@@ -44,21 +43,46 @@ if(empty($_GET['tanggal_dari'])) {
         <div class="col-md-10">
             <form method="GET">
                 <div class="input-group">
-                    <input type="date" class="form-control" name="tanggal_dari">
-                    <input type="date" class="form-control" name="tanggal_sampai">
+                    <select name="filter_bulan" class="form-control">
+                        <option value="">--Pilih Bulan--</option>
+                        <option value="01">Januari</option>
+                        <option value="02">Februari</option>
+                        <option value="03">Maret</option>
+                        <option value="04">April</option>
+                        <option value="05">Mei</option>
+                        <option value="06">Juni</option>
+                        <option value="07">Juli</option>
+                        <option value="08">Agustus</option>
+                        <option value="09">September</option>
+                        <option value="10">Oktober</option>
+                        <option value="11">November</option>
+                        <option value="12">Desember</option>
+                    </select>
+
+                    <select name="filter_tahun" class="form-control">
+                        <option value="">--Pilih Tahun--</option>
+                        <option value="2024">2024</option>
+                        <option value="2025">2025</option>
+                        <option value="2026">2026</option>
+                        <option value="2027">2027</option>
+                        <option value="2028">2028</option>
+                        <option value="2029">2029</option>
+                        <option value="2030">2030</option>
+                        <option value="2031">2031</option>
+                        <option value="2032">2032</option>
+                        <option value="2033">2033</option>
+                        <option value="2034">2034</option>
+                        <option value="2035">2035</option>
+                    </select>
                     <button type="submit" class="btn btn-primary">Tampilkan</button>
                 </div>
             </form>
         </div>
     </div>
 
-    <?php if(empty($_GET['tanggal_dari'])) : ?>
-        <span>Rekap Presensi Tanggal: <?= date('d F Y') ?></span>
-    <?php else: ?>
-        <span>Rekap Presensi Tanggal: <?= date('d F Y', strtotime($_GET['tanggal_dari'])) . ' sampai ' . date('d F Y', strtotime($_GET['tanggal_sampai'])) ?></span>
-    <?php endif; ?>
+    <span class="mb-2">Rekap Presensi Bulan: <?= date('F Y', strtotime($bulan)) ?></span>
 
-    <table class="table table-bordered">
+    <table class="table table-bordered mt-2">
         <tr class="text-center">
             <th>No</th>
             <th>Nama</th>
