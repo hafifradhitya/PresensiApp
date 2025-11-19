@@ -47,7 +47,11 @@ $result = mysqli_query($connection, "SELECT users.id_pegawai, users.username, us
 
                             <a href="<?= base_url('admin/data_pegawai/edit.php?id=' . $pegawai['id']) ?>" class="badge badge-pill bg-primary">Edit</a>
 
-                            <a href="<?= base_url('admin/data_pegawai/hapus.php?id=' . $pegawai['id']) ?>" class="badge badge-pill bg-danger tombol-hapus">Hapus</a>
+                            <?php if ($pegawai['id'] != $_SESSION['id']) : ?>
+                                <a href="<?= base_url('admin/data_pegawai/hapus.php?id=' . $pegawai['id']) ?>" class="badge badge-pill bg-danger tombol-hapus">Hapus</a>
+                            <?php else: ?>
+                                
+                            <?php endif; ?>
                         </td>
                     </tr>
 

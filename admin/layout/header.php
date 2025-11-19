@@ -17,7 +17,7 @@ require_once('../../config.php') ?>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-    <title>Dashboard - Tabler - Premium and Open Source dashboard template with responsive and high quality UI.</title>
+    <title>Selamat Datang Admin di Presensi Pegawai</title>
     <!-- CSS files -->
     <link href="<?= base_url('assets/css/tabler.min.css?1674944402') ?>" rel="stylesheet"/>
     <link href="<?= base_url('assets/css/tabler-vendors.min.css?1674944402') ?>" rel="stylesheet"/>

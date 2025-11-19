@@ -12,6 +12,28 @@ include('../layout/header.php');
 $pegawai = mysqli_query($connection, "SELECT pegawai.*, users.status FROM pegawai JOIN users ON pegawai.id = users.id_pegawai WHERE status = 'Aktif'");
 $total_pegawai_aktif = mysqli_num_rows($pegawai);
 
+$tanggal_hari_ini = date('Y-m-d');
+
+// 1. Jumlah Hadir (dari tabel presensi)
+$hadir = mysqli_query($connection, "SELECT * FROM presensi WHERE tanggal_masuk = '$tanggal_hari_ini'");
+$jumlah_hadir = mysqli_num_rows($hadir);
+
+// 2. Jumlah Sakit, Izin, Cuti (dari tabel ketidakhadiran)
+$sic = mysqli_query($connection, "
+    SELECT * FROM ketidakhadiran 
+    WHERE tanggal = '$tanggal_hari_ini' 
+      AND keterangan IN ('Sakit', 'Izin', 'Cuti')
+      -- kalau mau pakai yg disetujui saja, hidupkan baris ini:
+      -- AND status_pengajuan = 'Diterima'
+");
+$jumlah_sic = mysqli_num_rows($sic);
+
+// 3. Jumlah Alpa = pegawai aktif - (hadir + sakit/izin/cuti)
+$jumlah_alpa = $total_pegawai_aktif - $jumlah_hadir - $jumlah_sic;
+if ($jumlah_alpa < 0) {
+    $jumlah_alpa = 0; // jaga-jaga kalau minus karena data belum sinkron
+}
+
 ?>
  <!-- Page body -->
  <div class="page-body">
@@ -55,7 +77,7 @@ $total_pegawai_aktif = mysqli_num_rows($pegawai);
                                              Jumlah Hadir
                                          </div>
                                          <div class="text-muted">
-                                             0 Pegawai
+                                            <?= $jumlah_hadir . ' Pegawai' ?>
                                          </div>
                                      </div>
                                  </div>
@@ -76,7 +98,7 @@ $total_pegawai_aktif = mysqli_num_rows($pegawai);
                                              Jumlah Alpa
                                          </div>
                                          <div class="text-muted">
-                                             0 Pegawai
+                                             <?= $jumlah_alpa . ' Pegawai' ?>
                                          </div>
                                      </div>
                                  </div>
@@ -97,7 +119,7 @@ $total_pegawai_aktif = mysqli_num_rows($pegawai);
                                              Jumlah Sakit, Izin, dan Cuti
                                          </div>
                                          <div class="text-muted">
-                                             0 Pegawai
+                                             <?= $jumlah_sic . ' Pegawai' ?>
                                          </div>
                                      </div>
                                  </div>
@@ -110,4 +132,4 @@ $total_pegawai_aktif = mysqli_num_rows($pegawai);
      </div>
  </div>
 
-  <?php include('../layout/footer.php'); ?>
+<?php include('../layout/footer.php'); ?>
