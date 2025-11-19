@@ -138,7 +138,7 @@
     <!-- Sweet Alert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <?php if($_SESSION['gagal']) { ?>
+    <?php if(isset($_SESSION['gagal'])) { ?>
         <script>
             Swal.fire({
                 icon: "error",

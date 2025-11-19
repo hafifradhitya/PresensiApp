@@ -145,7 +145,7 @@ require_once('../../config.php') ?>
                 </div>
               </div>
             </div>
-            <div class="nav-item dropdown">
+            <div class="nav-item dropdown">  
               <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown" aria-label="Open user menu">
                 <img style="border-radius: 100%; width: 25px;" src="<?= base_url('assets/img/foto_pegawai/' . (!empty($_SESSION['foto']) ? $_SESSION['foto'] : 'default.jpg')) ?>" alt="">
                 <div class="d-none d-xl-block ps-2">
@@ -154,8 +154,8 @@ require_once('../../config.php') ?>
                 </div>
               </a>
               <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                <a href="#" class="dropdown-item">Profile</a>
-                <a href="./profile.html" class="dropdown-item">Ubah Password</a>
+                <a href="<?= base_url('pegawai/fitur_lainnya/profile.php') ?>" class="dropdown-item">Profile</a>
+                <a href="<?= base_url('pegawai/fitur_lainnya/ubah_password.php') ?>" class="dropdown-item">Ubah Password</a>
                 <a href="<?= base_url('auth/logout.php') ?>" class="dropdown-item">Logout</a>
               </div>
             </div>
