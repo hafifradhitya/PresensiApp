@@ -22,6 +22,7 @@ if(isset($_POST["login"])) {
                 $_SESSION['nip'] = $row['nip'];
                 $_SESSION['jabatan'] = $row['jabatan'];
                 $_SESSION['lokasi_presensi'] = $row['lokasi_presensi'];
+                $_SESSION['foto'] = $row['foto'];
 
                 if($row['role'] === 'admin') {
                     header("Location: ../admin/home/home.php");

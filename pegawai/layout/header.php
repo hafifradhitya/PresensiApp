@@ -147,10 +147,10 @@ require_once('../../config.php') ?>
             </div>
             <div class="nav-item dropdown">
               <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown" aria-label="Open user menu">
-                <span class="avatar avatar-sm" style="background-image: url(./static/avatars/000m.jpg)"></span>
+                <img style="border-radius: 100%; width: 25px;" src="<?= base_url('assets/img/foto_pegawai/' . (!empty($_SESSION['foto']) ? $_SESSION['foto'] : 'default.jpg')) ?>" alt="">
                 <div class="d-none d-xl-block ps-2">
-                  <div>Paweł Kuna</div>
-                  <div class="mt-1 small text-muted">UI Designer</div>
+                  <div><?= $_SESSION['nama'] ?></div>
+                  <div class="mt-1 small text-muted"><?= $_SESSION['jabatan'] ?></div>
                 </div>
               </a>
               <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
